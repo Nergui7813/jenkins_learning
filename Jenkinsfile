@@ -8,7 +8,7 @@ pipeline {
         }
 				stage('for the test branch') {
 				when {
-					branch "test-*"
+					branch "test*"
 					}
 				steps {
 					sh '''
