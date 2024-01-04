@@ -1,0 +1,15 @@
+{
+  "name": "jenkins_learning",
+  "version": "1.0.0",
+  "description": "test apis to help learn Jenkins",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "raluca",
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^3.3.2",
+    "superagent": "^8.1.2"
+  }
+}
