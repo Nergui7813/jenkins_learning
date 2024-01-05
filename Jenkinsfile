@@ -7,6 +7,11 @@ agent { docker {
       }
 	
     stages {
+	stage('Build') { 
+            steps {
+                sh 'npm install' 
+            }
+        }
         stage('Hello') {
             steps {
                 echo "hello from Jenkinsfile"
@@ -22,21 +27,10 @@ agent { docker {
 		// 		'''
 		// 	}
 		// }
-	stage('Node.js Scripts') {
+	stage('Run test files') {
             steps {
-                // Install Node.js dependencies (if any)
-                script {
-                    // Use npm install or yarn install based on your project
-                    sh 'npm install'
-                }
-
-                // Run Node.js scripts
-                script {
-                    // Run your Node.js scripts
                     sh 'node sw_species.js'
                     sh 'node playwright_test1.js'
-                    // Add more scripts as needed
-                }
             }
         }
 		// stage('for the PR') {
