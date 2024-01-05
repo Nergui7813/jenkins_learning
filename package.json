@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "node-fetch": "^3.3.2",
+    "playwright": "^1.40.1",
     "superagent": "^8.1.2"
   }
 }
