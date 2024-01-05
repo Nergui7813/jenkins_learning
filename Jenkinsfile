@@ -21,7 +21,8 @@ pipeline {
 				branch "*"
 			}
 			steps {
-				node *.js
+				node sw_species.js
+				node playwright_test1.js
 			}
 		}
 		// stage('for the PR') {
