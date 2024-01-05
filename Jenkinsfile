@@ -1,6 +1,6 @@
 pipeline {
     agent {label "main"}
-    tools {nodejs "nodejs"}
+
     stages {
         stage('Hello') {
             steps {
