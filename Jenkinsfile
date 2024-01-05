@@ -6,24 +6,32 @@ pipeline {
                 echo "hello from Jenkinsfile"
             }
         }
-				stage('for the test branch') {
-				when {
-					branch "test*"
-					}
-				steps {
-					sh '''
-						cat README.md
-					'''
-				}
+		// stage('for the test branch') {
+		// 	when {
+		// 		branch "test*"
+		// 		}
+		// 	steps {
+		// 		sh '''
+		// 			cat README.md
+		// 		'''
+		// 	}
+		// }
+		stage('for the new branches') {
+			when {
+				branch "*"
 			}
-			stage('for the PR') {
-				when {
-					branch 'PR-*'
-				}
-				steps {
-					echo 'this only runs for the PRs'
-				}
+			steps {
+				node *.js
 			}
+		}
+		// stage('for the PR') {
+		// 	when {
+		// 		branch 'PR-*'
+		// 	}
+		// 	steps {
+		// 		echo 'this only runs for the PRs'
+		// 	}
+		// }
 
     }
 }
