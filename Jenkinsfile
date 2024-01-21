@@ -5,8 +5,7 @@ pipeline {
     stages {
 	stage('Build') { 
             steps {
-				// sh 'npx playwright install'
-		sh 'su -s /bin/bash jenkins'   
+				// sh 'npx playwright install'  
 		sh 'npx playwright install-deps'
                 sh 'npm install'
             }
