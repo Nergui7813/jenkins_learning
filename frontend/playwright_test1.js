@@ -51,6 +51,7 @@ const assert = require('assert');
     ],
     "status": "available"
 };
+  console.log("TEST FINISHED, HURRAY!")
   // assert.equal(responseBody[0], doggo_uno, 'Expected the first doggo in the list to be Vasya');
 
 
