@@ -12,51 +12,51 @@ const assert = require('assert');
   const page = await context.newPage();
 
   // Navigate to Google
-  await page.goto('https://www.google.com');
+  await page.goto('https://petstore.swagger.io/#/');
 
-  // Check if the cookie button is present
-  const cookieButton = await page.$('#W0wltc > div');
-  if (cookieButton) {
-    // Click the cookie button to reject cookie settings
-    await cookieButton.click();
-  }
-  // await page.pause();
-  // Search for the word 'Nemesis'
-  await page.getByLabel('Search', { exact: true }).click();
-  await page.getByLabel('Search', { exact: true }).fill('Nemesis');
+  await page.waitForSelector('.opblock-tag-section.is-open');
 
-  // Press Enter to perform the search
-  await page.keyboard.press('Enter');
+  const getPetsByStatusButoon = page.locator(".opblock-summary-method").nth(3);
+  await getPetsByStatusButoon.click();
+  await page.getByRole('button', { name: 'Try it out' }).click();
+  await page.getByRole('listbox').selectOption('available');
 
-  // Wait for the search results to load
-  await page.waitForSelector('.v7W49e');
+//   await page.route('**/v2/pet/findByStatus?status=available', async route => {
+//   const response = await route.fetch();
+//   const json = await response.json();
+//   json.message['big_red_dog'] = [];
+//   await route.fulfill({ response, json });
+// });
+  const responsePromise = page.waitForResponse('**/v2/pet/findByStatus?status=available');
+  await page.getByRole('button', { name: 'Execute' }).click();
+  const response = await responsePromise;
+  const responseBody = await response.json();;
+  // console.log(responseBody[0]);
+  assert(Array.isArray(responseBody), 'Expected api to return an array');
+  const doggo_uno = {
+    "id": 112,
+    "category": {
+        "id": 86,
+        "name": "Vasya"
+    },
+    "name": "doggie",
+    "photoUrls": [
+        "aaaa"
+    ],
+    "tags": [
+        {
+            "id": 435,
+            "name": "aaaaa"
+        }
+    ],
+    "status": "available"
+};
+  assert.equal(responseBody[0], doggo_uno, 'Expected the first doggo in the list to be Vasya');
 
-  // Extract the titles and URLs of the first three search results -> kind of only extracts the first one
-  const results = await page.$$eval('.v7W49e', (links) => {
-    return links.slice(0, 9).map((link) => {
-      const titleElement = link.querySelector('h3');
-      const urlElement = link.querySelector('a');
+ 
+  // await page.locator('pre').filter({ hasText: '[ { "id": 111, "category' }).click();
 
-      return {
-        title: titleElement ? titleElement.innerText : 'No title found',
-        url: urlElement ? urlElement.href : 'No URL found',
-      };
-    });
-  });
 
-  // Log the results
-  console.log('Search Results:', results);
-
-  // check answer
-//   const expected_answer = [
-//     {
-//       title: 'Nemesis',
-//       url: 'https://languages.oup.com/google-dictionary-en'
-//     }
-//   ]
-//   assert.equal(results, expected_answer, 'Expected results to be from google-dictionary');
-  // Keep the browser open for inspection (close manually when done)
-  // await new Promise(() => {});
 
     // Close the browser
     await browser.close();
