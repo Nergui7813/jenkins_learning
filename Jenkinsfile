@@ -12,21 +12,13 @@ pipeline {
         }
 	stage('Run fronent with node') {
             steps {
-                    script {
-                        dir('frontend') {
-                            sh 'node playwright_test1.js'
-                        }
-                    }
+                sh 'node frontend/playwright_test1.js'
             }
         }
 
     stage('Run frontend with npx') {
             steps {
-                    script {
-                        dir('frontend') {
-                            sh 'npx playwright test simple_test.spec.js'
-                        }
-                    }
+                sh 'npx playwright test frontend/simple_test.spec.js'
             }
         }
     }
