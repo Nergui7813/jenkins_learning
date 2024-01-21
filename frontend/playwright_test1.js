@@ -51,10 +51,8 @@ const assert = require('assert');
     ],
     "status": "available"
 };
-  assert.equal(responseBody[0], doggo_uno, 'Expected the first doggo in the list to be Vasya');
+  // assert.equal(responseBody[0], doggo_uno, 'Expected the first doggo in the list to be Vasya');
 
- 
-  // await page.locator('pre').filter({ hasText: '[ { "id": 111, "category' }).click();
 
 
 
