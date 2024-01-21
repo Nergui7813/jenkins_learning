@@ -3,7 +3,7 @@ const assert = require('assert');
 
 (async () => {
   // Launch Chromium browser in non-headless mode
-  const browser = await chromium.launch({ headless: false });
+  const browser = await chromium.launch({ headless: true });
 
   // Create a new context (browser context)
   const context = await browser.newContext();
