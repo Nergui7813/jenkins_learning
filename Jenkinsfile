@@ -5,23 +5,22 @@ pipeline {
     stages {
 	stage('Build') { 
             steps {
-				// sh 'npx playwright install'
-		// sh 'sudo -u jenkins /bin/bash'    
+				// sh 'npx playwright install'  
 		sh 'npx playwright install-deps'
                 sh 'npm install'
             }
         }
-	stage('Run backend test') {
+	stage('Run fronent with node') {
             steps {
                     script {
-                        dir('backend') {
-                            sh 'node sw_species.js'
+                        dir('frontend') {
+                            sh 'node playwright_test_1.js'
                         }
                     }
             }
         }
 
-    stage('Run frontend test') {
+    stage('Run frontend with npx') {
             steps {
                     script {
                         dir('frontend') {
