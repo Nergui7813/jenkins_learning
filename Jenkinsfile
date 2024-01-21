@@ -31,13 +31,13 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            script {
-                def timestamp = currentBuild.getTimeInMilis()
-                def folderName = "test_results_${timestamp}"
-                archiveArtifacts 'artifacts/', fingerpint: true, onlyIfSuccessful: false, allowEmptyArchive: true, 'excludes': '', 'defaultExcludes': false, caseSensitive: false, 'archiveArtifacts': foldername
-            }
-        }
-    }
+    // post {
+    //     always {
+    //         script {
+    //             def timestamp = currentBuild.getTimeInMilis()
+    //             def folderName = "test_results_${timestamp}"
+    //             archiveArtifacts 'artifacts/', fingerpint: true, onlyIfSuccessful: false, allowEmptyArchive: true, 'excludes': '', 'defaultExcludes': false, caseSensitive: false, 'archiveArtifacts': foldername
+    //         }
+    //     }
+    // }
 }
