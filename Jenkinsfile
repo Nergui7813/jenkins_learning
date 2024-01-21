@@ -1,29 +1,44 @@
 pipeline {
-    agent {label "main"}
+    agent any
+    tools { nodejs 'main' }
+	
     stages {
-        stage('Hello') {
+	stage('Build') { 
             steps {
-                echo "hello from Jenkinsfile"
+				// sh 'npx playwright install'
+		sh 'su -s /bin/bash jenkins'   
+		sh 'npx playwright install-deps'
+                sh 'npm install'
             }
         }
-				stage('for the test branch') {
-				when {
-					branch "test*"
-					}
-				steps {
-					sh '''
-						cat README.md
-					'''
-				}
-			}
-			stage('for the PR') {
-				when {
-					branch 'PR-*'
-				}
-				steps {
-					echo 'this only runs for the PRs'
-				}
-			}
+	stage('Run backend test') {
+            steps {
+                    script {
+                        dir('backend') {
+                            sh 'node sw_species.js'
+                        }
+                    }
+            }
+        }
 
+    stage('Run frontend test') {
+            steps {
+                    script {
+                        dir('frontend') {
+                            sh 'npx playwright test simple_test.spec.js'
+                        }
+                    }
+            }
+        }
+    }
+
+    post {
+        always {
+            script {
+                def timestamp = currentBuild.getTimeInMilis()
+                def folderName = "test_results_${timestamp}"
+                archiveArtifacts 'artifacts/', fingerpint: true, onlyIfSuccessful: false, allowEmptyArchive: true, 'excludes': '', 'defaultExcludes': false, caseSensitive: false, 'archiveArtifacts': foldername
+            }
+        }
     }
 }
