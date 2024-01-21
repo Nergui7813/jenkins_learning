@@ -14,7 +14,7 @@ pipeline {
             steps {
                     script {
                         dir('frontend') {
-                            sh 'node playwright_test_1.js'
+                            sh 'node playwright_test1.js'
                         }
                     }
             }
