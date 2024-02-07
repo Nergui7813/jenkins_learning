@@ -18,13 +18,10 @@ pipeline {
             }
         }
     }
-    // post {
-    //     always {
-    //         script {
-    //             def timestamp = currentBuild.getTimeInMilis()
-    //             def folderName = "test_results_${timestamp}"
-    //             archiveArtifacts 'artifacts/', fingerpint: true, onlyIfSuccessful: false, allowEmptyArchive: true, 'excludes': '', 'defaultExcludes': false, caseSensitive: false, 'archiveArtifacts': foldername
-    //         }
-    //     }
-    // }
+    post {
+        always {
+            archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
+            junit 'build/reports/**/*.xml'
+        }
+    }
 }
